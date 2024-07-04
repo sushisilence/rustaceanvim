@@ -131,7 +131,8 @@ end
 function server.create_client_capabilities()
   local rs_capabilities = make_rustaceanvim_capabilities()
   local cmp_capabilities = mk_capabilities_if_available('cmp_nvim_lsp', function(cmp_nvim_lsp)
-    return cmp_nvim_lsp.default_capabilities()
+    local capabilities = cmp_nvim_lsp.default_capabilities()
+    capabilities.workspace = { didChangeWatchedFiles = { dynamicRegistration = true } }
   end)
   local selection_range_capabilities = mk_capabilities_if_available('lsp-selection-range', function(lsp_selection_range)
     return lsp_selection_range.update_capabilities {}
